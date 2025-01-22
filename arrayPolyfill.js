@@ -29,6 +29,32 @@ Array.prototype.myReducer = function(callback, initialValue = 0){
     return initialValue;
 }
 
+Array.prototype.myFilter = function(callback){
+    let result = [];
+    for(let i = 0; i < this.length; i++){
+        if(callback(this[i], i, this)){
+            result.push(this[i]);
+        }
+    }
+    return result;
+}
+
+Array.prototype.myEvery = function(callback){
+    for(let i = 0; i < this.length; i++){
+        if(!callback(this[i], i, this)){
+            return false;
+        }
+    }
+    return true;
+}
+
+const everyValue = [1, 2, 3].myEvery((el, i) => el < 4);
+console.log(everyValue)
+
+const filterValue = [1, 2, 3].myFilter((el, i) => el % 2 === 0);
+console.log(filterValue)
+
+
 const reducedValue1 = [1, 2, 3].myReducer((acc, curr)=>{
     return acc + curr
 }, 0)
